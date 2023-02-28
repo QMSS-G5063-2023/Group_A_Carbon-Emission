@@ -14,6 +14,19 @@
 | Weiwen Dai | wd2366@columbia.edu |
 
 ## Data Description
+There are 9 datasets to use
+
+| Info                  | Description |
+|-------------------------------|-------------|
+| fossil_CO2_totals_by_country  | Total fossil CO2 emissions by country |
+| fossil_CO2_by_sector_and_country | Fossil CO2 emissions by sector and country |
+| fossil_CO2_per_capita_by_country | Fossil CO2 emissions per capita by country |
+| fossil_CO2_per_GDP_by_country | Fossil CO2 emissions per GDP by country |
+| GHG_totals_by_country | Total greenhouse gas (GHG) emissions by country |
+| GHG_by_sector_and_country | GHG emissions by sector and country |
+| GHG_per_capita_by_country | GHG emissions per capita by country |
+| GHG_per_GDP_by_country | GHG emissions per GDP by country |
+| CO2_LULUCF_macroregions | CO2 emissions from land use, land-use change and forestry (LULUCF) by macro-region |
 
 The dataset contains the following columns:
 
