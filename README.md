@@ -13,16 +13,16 @@
 | Jin Liu  | jl6276@columbia.edu |
 | Weiwen Dai | wd2366@columbia.edu |
 
-+--------------------------+-----------+----------------------------------------------------------+
-| variable                 | class     | description                                              |
-+:=========================+:==========+==========================================================+
-| Country                  | character | Name of countries                                        |
-+--------------------------+-----------+----------------------------------------------------------+
-| Sector                   | character | Industry each observation pertains                       |
-+--------------------------+-----------+----------------------------------------------------------+
-| Substance                | character | Specific gas that is being measured                      |
-+--------------------------+-----------+----------------------------------------------------------+
-| Macro-region             | character | Greographical region                                     |
-+--------------------------+-----------+----------------------------------------------------------+
-| Year                     | character | Year of collecting records                               |
-+--------------------------+-----------+----------------------------------------------------------+
+## Data Description
+
+The dataset contains the following columns:
+
+| Column Name | Data Type | Description |
+|-------------|-----------|-------------|
+| Country     | character | Name of countries |
+| Sector      | character | Industry each observation pertains |
+| Substance   | character | Specific gas that is being measured |
+| Macro-region| character | Geographical region |
+| Year        | character | Year of collecting records |
+
+
