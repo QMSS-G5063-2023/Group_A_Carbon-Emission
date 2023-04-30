@@ -1,0 +1,239 @@
+---
+title: "datavis"
+output: html_document
+date: "2023-04-27"
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(tidyverse)
+library(shiny)
+library(readr)
+library(plotly)
+
+
+GHG <- read_csv("https://raw.githubusercontent.com/QMSS-G5063-2023/Group_A_Carbon-Emission/main/data/GHG_GDP_country.csv")
+CO2 <- read_csv("https://raw.githubusercontent.com/QMSS-G5063-2023/Group_A_Carbon-Emission/main/data/CO2_GDP_country.csv")
+
+
+ui <- fluidPage(
+  fluidRow(
+    column(width = 3,
+           selectInput(
+             inputId = "Country1",
+             label = "Select the country", 
+             choices = GHG$Country)),
+    column(width = 3,
+           selectInput(
+             inputId = "Country2",
+             label = "Select the country", 
+             choices = GHG$Country)),
+    column(width = 3,
+           selectInput(
+             inputId = "Country3",
+             label = "Select the country", 
+             choices = GHG$Country)),
+    column(width = 3,
+           selectInput(
+             inputId = "type",
+             label = "Select the type of greenhouse gas", 
+             choices =c("CO2","GHG")))
+  ),
+  plotlyOutput("lineplot"),
+  
+)
+
+server <- function(input, output) {
+  selectedPlot <- reactive({
+    input$type
+  })
+  
+
+  output$lineplot <- renderPlotly({
+    if (input$type == "CO2"){
+      Country1 = input$Country1
+      Country2 = input$Country2
+      Country3 = input$Country3
+      
+      country1 <- CO2[CO2$Country == Country1, ]
+      country_first_row1 <- country1[1, ]
+      country_first_row1 <- country_first_row1[, 2:30]
+      
+      country2 <- CO2[CO2$Country == Country2, ]
+      country_first_row2 <- country2[1, ]
+      country_first_row2 <- country_first_row2[, 2:30]
+      
+      country3 <- CO2[CO2$Country == Country3, ]
+      country_first_row3 <- country3[1, ]
+      country_first_row3 <- country_first_row3[, 2:30]
+      
+      df <- data.frame(
+        x = as.integer(1990:2018),
+        y1 = as.numeric(t(country_first_row1[1, ])),
+        y2 = as.numeric(t(country_first_row2[1, ])),
+        y3 = as.numeric(t(country_first_row3[1, ]))
+      )
+      
+      colnames(df) <- c("year", "CO2_per_GDP", "CO2_per_GDP2", "CO2_per_GDP3")
+      
+      map2 <- ggplot(df, aes(x = year)) +
+        geom_path(aes( y = CO2_per_GDP, color = Country1)) + geom_point(aes(y = CO2_per_GDP)) +
+        geom_path(aes( y = CO2_per_GDP2, color = Country2)) + geom_point(aes(y = CO2_per_GDP2)) +
+        geom_path(aes( y = CO2_per_GDP3, color = Country3)) + geom_point(aes(y = CO2_per_GDP3)) +
+        scale_x_continuous(limits = c(1990, 2020), breaks = seq(1990, 2020, by = 5)) + 
+        labs(title = "Line chart of CO2 emissions per GDP in different countries over time from 1990 to 2020 (in 5-year stages)", x = "Year", y = "CO2 per GDP") +
+        scale_color_manual(name = "Country", values = c("red","green", "blue"))
+      
+      ggplotly(map2)
+    } 
+    else{
+      Country1 = input$Country1
+      Country2 = input$Country2
+      Country3 = input$Country3
+      
+      country1 <- GHG[GHG$Country == Country1, ]
+      country_first_row1 <- country1[1, ]
+      country_first_row1 <- country_first_row1[, 2:ncol(country_first_row1)]
+      
+      country2 <- GHG[GHG$Country == Country2, ]
+      country_first_row2 <- country2[1, ]
+      country_first_row2 <- country_first_row2[, 2:ncol(country_first_row2)]
+      
+      country3 <- GHG[GHG$Country == Country3, ]
+      country_first_row3 <- country3[1, ]
+      country_first_row3 <- country_first_row3[, 2:ncol(country_first_row3)]
+      
+      df <- data.frame(
+        x = as.integer(1990:2018),
+        y1 = as.numeric(t(country_first_row1[1, ])),
+        y2 = as.numeric(t(country_first_row2[1, ])),
+        y3 = as.numeric(t(country_first_row3[1, ]))
+      )
+      
+      colnames(df) <- c("year", "GHG_per_GDP", "GHG_per_GDP2", "GHG_per_GDP3")
+      
+      map2 <- ggplot(df, aes(x = year)) +
+  geom_line(aes(y = GHG_per_GDP, color = Country1)) + geom_point(aes(y = GHG_per_GDP)) +
+  geom_line(aes(y = GHG_per_GDP2, color = Country2)) + geom_point(aes(y = GHG_per_GDP2)) +
+  geom_line(aes(y = GHG_per_GDP3, color = Country3)) + geom_point(aes(y = GHG_per_GDP3)) +
+  scale_x_continuous(limits = c(1990, 2020), breaks = seq(1990, 2020, by = 5)) + 
+  labs(title = "Line chart of GHG emissions per GDP in different countries over time from 1990 to 2020 (in 5-year stages)", 
+       x = "Year", y = "GHG per GDP") +
+  scale_color_manual(name = "Country", values = c("red","green", "blue"))
+
+ggplotly(map2)
+
+    }
+  })
+  
+}
+
+    # Run the app
+shinyApp(ui, server)
+
+```
+In conclusion, the trend of CO2/GHG emission per GDP can be summariesed into following causes:
+
+Technological advancements: Over time, technological advancements can lead to a reduction in CO2/GHG emissions per unit of GDP. For example, as more efficient and cleaner technologies are developed, businesses may be able to produce goods and services with less carbon emissions. This can be seen in some countries where the CO2/GHG emissions per GDP have decreased over time.
+
+Environmental policies: Environmental policies implemented by governments can influence the trend in CO2/GHG emissions per GDP over time. Policies such as carbon pricing, renewable energy incentives, and regulations can lead to a decrease in CO2/GHG emissions per GDP. Conversely, policies that prioritize economic growth over environmental concerns may result in an increase in CO2/GHG emissions per GDP. Take US as an example: Energy-related carbon dioxide (CO2) emissions in 2012 were the lowest in the United States since 1994. The largest drop in emissions in 2012 came from coal, which is used almost exclusively for electricity generation. During 2012, particularly in the spring and early summer, low natural gas prices led to competition between natural gas- and coal-fired electric power generators. Lower natural gas prices resulted in reduced levels of coal generation, and increased natural gas generation—a less carbon-intensive fuel for power generation, which shifted power generation from the most carbon-intensive fossil fuel (coal) to the least carbon-intensive fossil fuel (natural gas).
+
+Different stages of development: Different countries may be at different stages of development, and this can influence the trend in CO2/GHG emissions per GDP over time. Countries that are still rapidly developing their economies may see an increase in CO2/GHG emissions per GDP as they prioritize economic growth. However, as these countries continue to develop, they may eventually reach a stage where they prioritize sustainability over growth, resulting in a decrease in CO2/GHG emissions per GDP.
+```{r}
+library(tidyverse)
+library(shiny)
+library(plotly)
+
+GHG <- read_csv("/Users/jinliu/Desktop/datavis_finalproject/GHG_GDP_country.csv")
+CO2 <- read_csv("/Users/jinliu/Desktop/datavis_finalproject/CO2_GDP_country.csv") 
+
+GHG <- GHG %>%
+  mutate_at(vars(-Country), as.numeric)
+
+CO2 <- CO2 %>%
+  mutate_at(vars(-Country), as.numeric)
+
+ui <- fluidPage(
+  fluidRow(
+    column(width = 3,
+           selectInput(
+             inputId = "Year",
+             label = "Select the Year", 
+             choices = c(1990:2018))),
+    column(width = 3,
+           selectInput(
+             inputId = "type",
+             label = "Select the type of greenhouse gas", 
+             choices =c("CO2","GHG")))
+  ),
+  plotlyOutput("lineplot")
+)
+
+server <- function(input, output) {
+  output$lineplot <- renderPlotly({
+    if (input$type == "CO2") {
+      co2_year <- CO2[, input$Year]
+      co2_by_country <- data.frame(Country = CO2[, 1], CO2 = co2_year)
+      colnames(co2_by_country) <- c("Country", "CO2")
+      sorted_co2_by_country <- co2_by_country %>%
+        arrange(desc(CO2))
+      top_ten_co2_emitting_countries <- head(sorted_co2_by_country, 10)
+      
+      # Create bar chart with plotly
+      plot <- top_ten_co2_emitting_countries %>%
+        plot_ly(x = ~CO2, y = ~reorder(Country, CO2), type = "bar", orientation = "h", marker = list(color = "rgba(50, 171, 96, 0.6)", line = list(color = "rgba(50, 171, 96, 1.0)", width = 2)), text = ~paste("Country: ", Country, "<br>CO2: ", CO2), hoverinfo = "text", showlegend = FALSE) %>%
+        layout(title = "Top Ten Countries by CO2 Emissions per GDP",
+               xaxis = list(title = "CO2 Emissions (metric tons)"),
+               yaxis = list(title = "Country", autorange = "reversed", tickfont = list(size = 10), automargin = TRUE),
+               margin = list(l = 100, r = 20, t = 100, b = 100),
+               plot_bgcolor = "#F3F6FA", paper_bgcolor = "#F3F6FA",
+               font = list(family = "Arial", size = 12),
+               hoverlabel = list(bgcolor = "#FFFFFF", font = list(family = "Arial", size = 12)),
+               annotations = list(list(xref = "paper", yref = "paper", x = 0.0, y = 1.05, showarrow = FALSE, text = "CO2 Emissions (metric tons)", font = list(family = "Arial", size = 14, color = "#000000")), 
+                                  list(xref = "paper", yref = "paper", x = 0.5, y = -0.1, showarrow = FALSE, text = "Source: World Bank", font = list(family = "Arial", size = 12, color = "#666666"))))
+      
+      # Return the plot
+      return(plot)
+    }
+    else{
+      GHG_year <- GHG[, input$Year]
+      GHG_by_country <- data.frame(Country = GHG[, 1], GHG = GHG_year)
+      colnames(GHG_by_country) <- c("Country", "GHG")
+      sorted_GHG_by_country <- GHG_by_country %>%
+        arrange(desc(GHG))
+      top_ten_GHG_emitting_countries <- head(sorted_GHG_by_country, 10)
+      
+      # Create bar chart with plotly
+      plot <- top_ten_GHG_emitting_countries %>%
+        plot_ly(x = ~GHG, y = ~reorder(Country, GHG), type = "bar", orientation = "h", marker = list(color = "rgba(50, 171, 96, 0.6)", line = list(color = "rgba(50, 171, 96, 1.0)", width = 2)), text = ~paste("Country: ", Country, "<br>GHG: ", GHG), hoverinfo = "text", showlegend = FALSE) %>%
+        layout(title = "Top Ten Countries by GHG Emissions per GDP",
+               xaxis = list(title = "GHG Emissions (metric tons)"),
+               yaxis = list(title = "Country", autorange = "reversed", tickfont = list(size = 10), automargin = TRUE),
+               margin = list(l = 100, r = 20, t = 100, b = 100),
+               plot_bgcolor = "#F3F6FA", paper_bgcolor = "#F3F6FA",
+               font = list(family = "Arial", size = 12),
+               hoverlabel = list(bgcolor = "#FFFFFF", font = list(family = "Arial", size = 12)),
+               annotations = list(list(xref = "paper", yref = "paper", x = 0.0, y = 1.05, showarrow = FALSE, text = "GHG Emissions (metric tons)", font = list(family = "Arial", size = 14, color = "#000000")), 
+                                  list(xref = "paper", yref = "paper", x = 0.5, y = -0.1, showarrow = FALSE, text = "Source: World Bank", font = list(family = "Arial", size = 12, color = "#666666"))))
+      
+      # Return the plot
+      return(plot)
+    }
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+
+
+```
