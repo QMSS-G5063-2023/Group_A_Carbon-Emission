@@ -3,7 +3,7 @@
  
 - Group title: Group_A_Carbon-Emission
 
-- Brief description: This project mainly explores the relationship between carbon emissions and global temperature trends over time and how different countries contribute to this trend.
+- Brief description: This project dedicated to studying the differences in greenhouse gas emissions between countries and the measures they take to deal with greenhouse gas emissions.
 
 - Names and e-mail of all members: 
 
