@@ -15,7 +15,7 @@
 | Weiwen Dai | wd2366@columbia.edu |
 
 ## Data Description
-There are 9 datasets used
+There are 9 datasets used:
 
 | Info                  | Description |
 |-------------------------------|-------------|
