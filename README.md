@@ -6,7 +6,7 @@
 
 - Brief description: This project dedicated to studying the differences in greenhouse gas emissions across countries and sectors, and the measures they take to deal with greenhouse gas emissions.
 
-- Our Final Output:
+- Our Final Outputs:
 1. [`Process Book`](https://github.com/QMSS-G5063-2023/Group_A_Carbon-Emission/blob/main/ProcessBook/ProcessBook_GroupA.png)
 2. [`Project Web Site`](https://groupa-carbon-emission.shinyapps.io/Final_Project_GroupA/)
 3. [`Data`](https://github.com/QMSS-G5063-2023/Group_A_Carbon-Emission/tree/main/data)
