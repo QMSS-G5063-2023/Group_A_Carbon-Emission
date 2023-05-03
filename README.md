@@ -40,6 +40,6 @@ The dataset contains the following columns:
 | Year        | character | Year of collecting records |
 
 ## Process Book
-![Process Book](Process_Book_GroupA/Process_Book.png)
+![Process Book](Process Book/Process Book_GroupA.png)
 
 
