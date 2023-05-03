@@ -27,6 +27,7 @@ There are 9 datasets to use
 | GHG_by_sector_and_country | GHG emissions by sector and country |
 | GHG_per_capita_by_country | GHG emissions per capita by country |
 | GHG_per_GDP_by_country | GHG emissions per GDP by country |
+| measures | Text of United States's measures to decarbonize |
 
 The dataset contains the following columns:
 
