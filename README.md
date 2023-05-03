@@ -3,7 +3,7 @@
  
 - Group title: Group_A_Carbon-Emission
 
-- Brief description: This project dedicated to studying the differences in greenhouse gas emissions between countries and the measures they take to deal with greenhouse gas emissions.
+- Brief description: This project dedicated to studying the differences in greenhouse gas emissions across countries and sectors, and the measures they take to deal with greenhouse gas emissions.
 
 - Names and E-mails of all members: 
 
