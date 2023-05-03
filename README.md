@@ -5,7 +5,7 @@
 
 - Brief description: This project dedicated to studying the differences in greenhouse gas emissions between countries and the measures they take to deal with greenhouse gas emissions.
 
-- Names and e-mail of all members: 
+- Names and e-mails of all members: 
 
 |  Name   | E-mail  |
 |  ---   | ---  |
