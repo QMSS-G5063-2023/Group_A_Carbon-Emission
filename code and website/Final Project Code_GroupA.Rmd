@@ -92,7 +92,7 @@ From the start of the 21st century until 2019, there was a notable rise in globa
 
 To address this issue, countries are developing national emissions inventories and proposing and implementing actions to mitigate GHG emissions. However, CO2 emissions, the primary cause of global warming, continue to increase worldwide despite such efforts.
 
-As a result, we want to find out the relationship between carbon emissions and global temperature trends over time and how have different countries contributed to this trend.<br><br>
+Our project is dedicated to studying the differences in greenhouse gas emissions between countries and the measures they take to deal with greenhouse gas emissions.<br><br>
 
 ## Map of Greenhouse Gas Emissions by Country (Total & Per Capita){.title}
 
