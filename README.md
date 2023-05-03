@@ -27,7 +27,6 @@ There are 9 datasets to use
 | GHG_by_sector_and_country | GHG emissions by sector and country |
 | GHG_per_capita_by_country | GHG emissions per capita by country |
 | GHG_per_GDP_by_country | GHG emissions per GDP by country |
-| CO2_LULUCF_macroregions | CO2 emissions from land use, land-use change and forestry (LULUCF) by macro-region |
 
 The dataset contains the following columns:
 
@@ -40,6 +39,6 @@ The dataset contains the following columns:
 | Year        | character | Year of collecting records |
 
 ## Process Book
-![Process Book](Process_Book_GroupA/Process_Book.png)
+![Process Book](Group_A_Carbon-Emission/ProcessBook/ProcessBook_GroupA.png)
 
 
