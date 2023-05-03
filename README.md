@@ -39,6 +39,6 @@ The dataset contains the following columns:
 | Year        | character | Year of collecting records |
 
 ## Process Book
-![Process Book](Group_A_Carbon-Emission/ProcessBook/ProcessBook_GroupA.png)
+![Process Book](ProcessBook/ProcessBook_GroupA.png)
 
 
